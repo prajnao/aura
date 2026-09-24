@@ -12,11 +12,30 @@ import { getRequiredFormatValue } from "@/libs/getRequiredFormatValue";
 
 const FORMATS = ["HEX", "RGB", "HSL"] as const;
 const SPRING = { type: "spring", visualDuration: 0.35, bounce: 0.25 } as const;
+const COPIED_HOLD = 700;
+
+async function copyText(text: string) {
+  if (navigator.clipboard && window.isSecureContext) {
+    return navigator.clipboard.writeText(text);
+  }
+  // fallback for non-secure contexts (e.g. testing over a LAN IP)
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.position = "fixed";
+  ta.style.opacity = "0";
+  document.body.appendChild(ta);
+  ta.select();
+  const ok = document.execCommand("copy");
+  ta.remove();
+  if (!ok) throw new Error("copy failed");
+}
 
 type Props = { color: number[]; index: number; total: number };
 
 export default function Swatch({ color, index, total }: Props) {
   const [open, setOpen] = useState(false);
+  const [copied, setCopied] = useState<string | null>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout>>();
   const rootRef = useRef<HTMLDivElement>(null);
   const blobRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -38,6 +57,25 @@ useMotionValueEvent(progress, "change", (t) => {
     const controls = animate(progress, open ? 1 : 0, SPRING);
     return () => controls.stop();
   }, [open, progress]);
+
+  useEffect(() => {
+    if (open) return;
+    clearTimeout(closeTimer.current);
+    setCopied(null);
+  }, [open]);
+
+  useEffect(() => () => clearTimeout(closeTimer.current), []);
+
+  const onCopy = async (format: string) => {
+    try {
+      await copyText(getRequiredFormatValue(format, color));
+    } catch {
+      return;
+    }
+    setCopied(format);
+    clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setOpen(false), COPIED_HOLD);
+  };
 
   useEffect(() => {
     if (!open) return;
@@ -152,16 +190,14 @@ useMotionValueEvent(progress, "change", (t) => {
         role="menuitem"
         type="button"
         tabIndex={open ? 0 : -1}
-        onClick={() => {
-          navigator.clipboard.writeText(getRequiredFormatValue(format, color));
-          setOpen(false);
-        }}
+        aria-label={`Copy ${format} value`}
+        onClick={() => onCopy(format)}
         style={{ height: DROPDOWN_ITEM_HEIGHT }}
         className="flex w-full items-center justify-between rounded-xl px-3 text-[13px] whitespace-nowrap text-neutral-600 transition-colors hover:bg-black/5 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-white/5 dark:hover:text-white"
       >
         <span className="font-medium">{format}</span>
         <span className="font-mono text-neutral-400">
-          {getRequiredFormatValue(format, color)}
+          {copied === format ? "Copied!" : getRequiredFormatValue(format, color)}
         </span>
       </button>
     ))}
