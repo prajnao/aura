@@ -35,7 +35,7 @@ export default function Home() {
             target="_blank"
             rel="noreferrer"
             aria-label="NPM package"
-            className="mb-0.5 inline-flex h-6 w-6 text-gray-400 dark:text-zinc-700 bg-white cursor-pointer dark:bg-[#272727] rounded-[5px] items-center justify-center text-muted transition-colors hover:text-strong"
+            className="mb-0.5 inline-flex h-6 w-6 cursor-pointer text-gray-400 dark:text-zinc-700 bg-white cursor-pointer dark:bg-[#272727] rounded-[5px] items-center justify-center text-muted transition-colors hover:text-strong"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +53,7 @@ export default function Home() {
             target="_blank"
             rel="noreferrer"
             aria-label="NPM package"
-            className="mb-0.5 inline-flex h-6 w-6 text-gray-400 dark:text-zinc-700 bg-white cursor-pointer dark:bg-[#272727] rounded-[5px] items-center justify-center text-muted transition-colors hover:text-strong"
+            className="mb-0.5 inline-flex h-6 w-6 cursor-pointer text-gray-400 dark:text-zinc-700 bg-white cursor-pointer dark:bg-[#272727] rounded-[5px] items-center justify-center text-muted transition-colors hover:text-strong"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +72,7 @@ export default function Home() {
         </div>
       </nav>
 
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col mt-2 justify-center items-center">
         {upload ? <MainComponent /> : <UploadImage />}
       </div>
     </main>

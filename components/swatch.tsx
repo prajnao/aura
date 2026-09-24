@@ -27,16 +27,6 @@ export default function Swatch({ color, index, total }: Props) {
 
   const progress = useMotionValue(0);
 
-//   useMotionValueEvent(progress, "change", (t) => {
-//     const box = lerpBox(geo.ring, geo.open, t);
-//     const clip = insetClip(box, geo.layer.width, geo.layer.height);
-//     if (blobRef.current) blobRef.current.style.clipPath = clip;
-//     // text fades in only in the back half, once the panel has real area
-//     if (menuRef.current) {
-//     //   menuRef.current.style.opacity = String(Math.max(0, (t - 0.5) * 2));
-//     menuRef.current.style.opacity = t > 0.9 ? "1" : "0";
-//     }
-//   });
 useMotionValueEvent(progress, "change", (t) => {
     const box = lerpBox(geo.ring, geo.open, t);
     const clip = insetClip(box, geo.layer.width, geo.layer.height);
@@ -85,11 +75,6 @@ useMotionValueEvent(progress, "change", (t) => {
       }}
     >
       {/* ---- goo layer: everything white ---- */}
-     {/* goo layer — traveller + an invisible anchor copy of the ring */}
-{/* <div
-  className="pointer-events-none absolute inset-0 text-white dark:text-[#272727]"
-  style={{ filter: "url(#goo)" }}
-> */}
 <div
   className="pointer-events-none absolute inset-0"
   style={{ filter: "url(#goo)" }}

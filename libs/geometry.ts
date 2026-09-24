@@ -1,9 +1,9 @@
 // image, frame, color box, padding & gap 
-export const MAX_W = 300;
-export const MAX_H = 300;
-export const FRAME = 6;
-export const SWATCH = 80;
-export const GAP = 60;
+export const MAX_W = 260;
+export const MAX_H = 200;
+export const FRAME = 5;
+export const SWATCH = 70;
+export const GAP = 30;
 export const MARGIN = 32;
 export const START_ANGLE = -90;
 
@@ -42,15 +42,15 @@ export function direction(i:number, total:number){
 
 
 // gooey dropdown related values and constants 
-export const DROPDOWN_WIDTH=200;
-export const DROPDOWN_ITEM_HEIGHT=40;
+export const DROPDOWN_WIDTH=210;
+export const DROPDOWN_ITEM_HEIGHT=35;
 export const DROPDOWN_PAD=6;
 export const DROPDOWN_GAP=6;
 export const SWATCH_RADIUS=24;
-export const DROPDOWN_RADIUS=20;
+export const DROPDOWN_RADIUS=12;
 
 
-export const RING = 5;
+export const RING = 4;
 
 export function dropdownGeometry(dir: DIRECTION, itemCount: number) {
   const dropdownHeight = itemCount * DROPDOWN_ITEM_HEIGHT + DROPDOWN_PAD * 2;
