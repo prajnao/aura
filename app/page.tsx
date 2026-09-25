@@ -12,22 +12,29 @@ export default function Home() {
     <main className="h-screen flex flex-col p-4">
       {/* version switch  */}
       <nav className="flex items-center justify-between">
-        <select className="bg-white dark:bg-[#272727] rounded-lg text-sm px-2 py-1">
-          <option
-            value="1"
-            selected={version === 1}
-            onClick={() => setVersion(1)}
+        <div className="relative inline-flex items-center">
+          <select
+            value={version}
+            onChange={(e) => setVersion(Number(e.target.value))}
+            className="appearance-none cursor-pointer bg-white dark:bg-[#272727] rounded-lg text-sm leading-none py-1.5 pl-2.5 pr-7 focus:outline-none"
           >
-            v1
-          </option>
-          <option
-            value="2"
-            selected={version === 2}
-            onClick={() => setVersion(2)}
+            <option value={1}>v1</option>
+            <option value={2}>v2</option>
+          </select>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="pointer-events-none absolute right-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2"
+            aria-hidden="true"
           >
-            v2
-          </option>
-        </select>
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </div>
 
         <div className="flex items-center gap-2">
           <a

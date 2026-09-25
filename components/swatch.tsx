@@ -12,7 +12,7 @@ import { getRequiredFormatValue } from "@/libs/getRequiredFormatValue";
 
 const FORMATS = ["HEX", "RGB", "HSL"] as const;
 const SPRING = { type: "spring", visualDuration: 0.35, bounce: 0.25 } as const;
-const COPIED_HOLD = 700;
+const COPIED_HOLD = 1200;
 
 async function copyText(text: string) {
   if (navigator.clipboard && window.isSecureContext) {
@@ -35,7 +35,7 @@ type Props = { color: number[]; index: number; total: number };
 export default function Swatch({ color, index, total }: Props) {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
-  const closeTimer = useRef<ReturnType<typeof setTimeout>>();
+  const copiedTimer = useRef<ReturnType<typeof setTimeout>>();
   const rootRef = useRef<HTMLDivElement>(null);
   const blobRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -60,11 +60,11 @@ useMotionValueEvent(progress, "change", (t) => {
 
   useEffect(() => {
     if (open) return;
-    clearTimeout(closeTimer.current);
+    clearTimeout(copiedTimer.current);
     setCopied(null);
   }, [open]);
 
-  useEffect(() => () => clearTimeout(closeTimer.current), []);
+  useEffect(() => () => clearTimeout(copiedTimer.current), []);
 
   const onCopy = async (format: string) => {
     try {
@@ -73,8 +73,8 @@ useMotionValueEvent(progress, "change", (t) => {
       return;
     }
     setCopied(format);
-    clearTimeout(closeTimer.current);
-    closeTimer.current = setTimeout(() => setOpen(false), COPIED_HOLD);
+    clearTimeout(copiedTimer.current);
+    copiedTimer.current = setTimeout(() => setCopied(null), COPIED_HOLD);
   };
 
   useEffect(() => {
