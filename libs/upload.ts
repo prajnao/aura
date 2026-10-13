@@ -10,7 +10,7 @@ export const getImageUploadData = (
       const img = new Image();
       img.onload = () => {
         const colorThief = new ColorThief();
-        const colorPalette = colorThief.getPalette(img, 7);
+        const colorPalette = colorThief.getPalette(img, 10);
         resolve({
           uploadValue: event.target?.result as string,
           colorPaletteList: colorPalette,

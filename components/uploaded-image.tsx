@@ -1,19 +1,28 @@
 "use client";
+
 import { UploadContext } from "@/context/useUploadData";
-import Image from "next/image";
 import { useContext } from "react";
+import { FRAME, IMAGE_IN, MAX_H, MAX_W } from "@/libs/geometry";
 
 export default function UploadedImage() {
   const { upload } = useContext(UploadContext);
+
   return (
-    <div className="p-[11px] bg-white dark:bg-[#262626] rounded-xl drop-shadow-md dark:drop-shadow-2xl w-fit h-fit">
-      <Image
-        width={650}
-        height={300}
+    <div
+    style={{
+      padding: FRAME,
+      // @ts-expect-error - eslint issue
+      cornerShape:"squircle",
+      animation: `frame-in ${IMAGE_IN}ms cubic-bezier(0.22, 1, 0.36, 1) backwards`,
+    }}
+    className="frame-animate h-fit w-fit rounded-3xl bg-white shadow-xl dark:bg-[#272727] dark:shadow-2xl"
+  >
+      <img
         src={upload!}
-        alt="image"
-        objectFit="cover"
-        className="md:h-[500px] w-fit object-contain rounded-xl"
+        alt="uploaded"
+        // @ts-expect-error - eslint issue
+        style={{ maxWidth: MAX_W, maxHeight: MAX_H ,cornerShape:"squircle"}}
+        className="block h-auto w-auto rounded-3xl"
       />
     </div>
   );

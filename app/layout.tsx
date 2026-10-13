@@ -1,18 +1,14 @@
-import localFont from "next/font/local";
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import Provider from "@/providers/provider";
 
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const inter = Inter({
+  subsets: ["latin"],
+  weight: "500",
+  variable: "--font-inter",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -28,10 +24,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen bg-[#F5F5F5] dark:bg-[#141414]`}
+        className={`${inter.variable} antialiased h-screen bg-[#ebebeb] dark:bg-[#141414]`}
       >
         <Provider>{children}</Provider>
       </body>
     </html>
   );
 }
+
+
+// bg-[#F3F3F3]
+// bg-[#E9ECED]

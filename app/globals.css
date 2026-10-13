@@ -11,5 +11,36 @@
   font-weight:bolder;
 }
 
+body{
+  font-family: var(--font-inter);
+}
 
 
+@keyframes swatch-pop {
+  from {
+    transform: translate(0, 0) scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: translate(var(--x), var(--y)) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes frame-in {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .swatch-animate,
+  .frame-animate {
+    animation: none !important;
+  }
+}
