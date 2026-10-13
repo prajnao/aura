@@ -42,7 +42,7 @@ export function direction(i:number, total:number){
 
 
 // gooey dropdown related values and constants 
-export const DROPDOWN_WIDTH=210;
+export const DROPDOWN_WIDTH=220;
 export const DROPDOWN_ITEM_HEIGHT=35;
 export const DROPDOWN_PAD=6;
 export const DROPDOWN_GAP=6;
